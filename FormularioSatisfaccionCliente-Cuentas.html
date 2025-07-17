@@ -23,7 +23,7 @@
             width: 100%;
         }
 
-        .formulario h2 {
+        .formulario h2,h5 {
             margin-bottom: 20px;
             color: #2c3e50;
         }
@@ -89,7 +89,8 @@
 
     <form class="formulario" id="formulario" method="POST">
         <h2>Encuesta de Satisfacción</h2>
-        <h3>fyoTickets - Cuentas TEST</h3>
+        <h5>fyoTickets - Cuentas TEST</h5>
+
         <label for="satisfaccion">Nivel de satisfacción (1 a 5):</label>
         <input type="number" id="satisfaccion" name="satisfaccion" min="1" max="5" required />
 
@@ -101,6 +102,7 @@
         <div style="text-align: right;">
             <button type="submit">Enviar</button>
         </div>
+
     </form>
 </body>
 
