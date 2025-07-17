@@ -23,7 +23,8 @@
             width: 100%;
         }
 
-        .formulario h2,h5 {
+        .formulario h2,
+        h5 {
             margin-bottom: 20px;
             color: #2c3e50;
         }
@@ -67,6 +68,22 @@
         button:hover {
             background-color: #27ae60;
         }
+
+        .estrellas {
+            display: flex;
+            gap: 10px;
+            font-size: 2rem;
+            cursor: pointer;
+        }
+
+        .estrella {
+            color: #ccc;
+            transition: color 0.3s;
+        }
+
+        .estrella.seleccionada {
+            color: #f1c40f;
+        }
     </style>
 </head>
 
@@ -86,13 +103,20 @@
         });
     </script>
 
-
     <form class="formulario" id="formulario" method="POST">
         <h2>Encuesta de Satisfacción</h2>
         <h5>fyoTickets - Cuentas TEST</h5>
 
-        <label for="satisfaccion">Nivel de satisfacción (1 a 5):</label>
-        <input type="number" id="satisfaccion" name="satisfaccion" min="1" max="5" required />
+        <label for="satisfaccion">Nivel de satisfacción</label>
+        <div class="estrellas" id="estrellas">
+            <span class="estrella" data-valor="1">★</span>
+            <span class="estrella" data-valor="2">★</span>
+            <span class="estrella" data-valor="3">★</span>
+            <span class="estrella" data-valor="4">★</span>
+            <span class="estrella" data-valor="5">★</span>
+        </div>
+        <input type="hidden" name="satisfaccion" id="satisfaccion" required />
+
 
         <label for="comentario">Comentario (opcional):</label>
         <textarea id="comentario" name="comentario" rows="4" placeholder="Contanos tu experiencia..."></textarea>
@@ -104,6 +128,30 @@
         </div>
 
     </form>
+    <script>
+        const estrellas = document.querySelectorAll('.estrella');
+        const inputSatisfaccion = document.getElementById('satisfaccion');
+        const formulario = document.querySelector('.formulario');
+
+        estrellas.forEach((estrella, idx) => {
+            estrella.addEventListener('click', () => {
+                const valor = estrella.getAttribute('data-valor');
+                inputSatisfaccion.value = valor;
+
+                estrellas.forEach((e, i) => {
+                    e.classList.toggle('seleccionada', i < valor);
+                });
+            });
+        });
+
+        formulario.addEventListener('submit', (e) => {
+            if (!inputSatisfaccion.value) {
+                e.preventDefault();
+                alert('Por favor seleccioná tu nivel de satisfacción antes de enviar.');
+            }
+        });
+    </script>
+
 </body>
 
 </html>
