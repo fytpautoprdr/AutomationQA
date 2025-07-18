@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Ejecutar Flujo n8n</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      margin-top: 100px;
+      background-color: #f4f4f4;
+    }
+    button {
+      padding: 15px 30px;
+      font-size: 18px;
+      color: white;
+      background-color: #4CAF50;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #45a049;
+    }
+    #status {
+      margin-top: 20px;
+      font-size: 16px;
+    }
+  </style>
+</head>
+<body>
+  <h1>🚀 Empezando el día</h1>
+  <button onclick="ejecutarFlujo()">Ejecutar</button>
+  <div id="status"></div>
+
+  <script>
+    function ejecutarFlujo() {
+      document.getElementById("status").innerText = "🕒 Ejecutando flujo...";
+      fetch("https://n8nprd.fyo.com/webhook/EmpezandoElDia", {
+        method: "GET"
+      })
+      .then(response => {
+        if (response.ok) {
+          document.getElementById("status").innerText = "✅ Flujo ejecutado con éxito";
+        } else {
+          document.getElementById("status").innerText = "⚠️ Hubo un problema al ejecutar el flujo";
+        }
+      })
+      .catch(error => {
+        console.error("Error:", error);
+        document.getElementById("status").innerText = "❌ Error de conexión";
+      });
+    }
+  </script>
+</body>
+</html>
