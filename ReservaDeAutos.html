@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
   <meta charset="UTF-8">
   <title>Reserva de Autos</title>
@@ -17,7 +18,7 @@
       background-color: #fff;
       border-radius: 8px;
       padding: 30px;
-      box-shadow: 0 0 15px rgba(0,0,0,0.1);
+      box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
     }
 
     h2 {
@@ -87,10 +88,25 @@
     }
   </style>
 </head>
+
 <body>
+  <script>
+    window.addEventListener('DOMContentLoaded', () => {
+      const params = new URLSearchParams(window.location.search);
+      const idPedido = params.get('idPedido');
+      if (idPedido) {
+        // Setear el valor en el input oculto
+        document.getElementById('idPedido').value = idPedido;
+
+        // Modificar dinámicamente el action del formulario
+        const formulario = document.getElementById('formulario');
+        formulario.action = 'https://n8nprd.fyo.com/webhook/ReservaDeAutos?idPedido=${encodeURIComponent(idPedido)}';
+      }
+    });
+  </script>
   <div class="formulario">
     <h2><i class="fas fa-car-side"></i> Reserva de Autos</h2>
-    <form id="reservaForm" action="/reserva" method="post">
+    <form id="formulario" action="/reserva" method="post">
       <label for="destino">Destino <span class="obligatorio">*</span></label>
       <div class="campo-icono">
         <i class="fas fa-map-marker-alt"></i>
@@ -111,6 +127,8 @@
         <textarea id="observaciones" name="observaciones" placeholder="Opcional..."></textarea>
       </div>
 
+      <input type="hidden" name="idPedido" id="idPedido" value="" />
+
       <button type="submit" class="boton">
         <i class="fas fa-paper-plane"></i> Enviar Reserva
       </button>
@@ -118,7 +136,7 @@
   </div>
 
   <script>
-    document.getElementById('reservaForm').addEventListener('submit', function(event) {
+    document.getElementById('formulario').addEventListener('submit', function (event) {
       const destino = document.getElementById('destino');
       const acompanantes = document.getElementById('acompanantes');
 
@@ -146,4 +164,5 @@
     });
   </script>
 </body>
+
 </html>
