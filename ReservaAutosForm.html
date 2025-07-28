@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Reserva de Autos</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #f2f2f2;
+      padding: 40px;
+    }
+
+    .formulario {
+      max-width: 500px;
+      margin: auto;
+      background-color: #fff;
+      border-radius: 8px;
+      padding: 30px;
+      box-shadow: 0 0 15px rgba(0,0,0,0.1);
+    }
+
+    h2 {
+      text-align: center;
+      color: #333;
+    }
+
+    label {
+      display: block;
+      margin-top: 15px;
+      margin-bottom: 5px;
+      font-weight: bold;
+    }
+
+    .obligatorio {
+      color: red;
+    }
+
+    .campo-icono {
+      position: relative;
+    }
+
+    .campo-icono i {
+      position: absolute;
+      top: 10px;
+      left: 10px;
+      color: #555;
+    }
+
+    input[type="text"],
+    textarea {
+      width: 100%;
+      padding: 10px 10px 10px 35px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      box-sizing: border-box;
+      font-size: 14px;
+    }
+
+    textarea {
+      resize: vertical;
+      min-height: 80px;
+    }
+
+    .boton {
+      display: block;
+      width: 100%;
+      background-color: #28a745;
+      color: white;
+      border: none;
+      padding: 12px;
+      border-radius: 6px;
+      font-size: 16px;
+      margin-top: 20px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    .boton:hover {
+      background-color: #218838;
+    }
+
+    .error {
+      color: red;
+      font-size: 13px;
+      margin-top: 5px;
+    }
+  </style>
+</head>
+<body>
+  <div class="formulario">
+    <h2><i class="fas fa-car-side"></i> Reserva de Autos</h2>
+    <form id="reservaForm" action="/reserva" method="post">
+      <label for="destino">Destino <span class="obligatorio">*</span></label>
+      <div class="campo-icono">
+        <i class="fas fa-map-marker-alt"></i>
+        <input type="text" id="destino" name="destino">
+        <div id="error-destino" class="error"></div>
+      </div>
+
+      <label for="acompanantes">Acompañantes <span class="obligatorio">*</span></label>
+      <div class="campo-icono">
+        <i class="fas fa-users"></i>
+        <input type="text" id="acompanantes" name="acompanantes">
+        <div id="error-acompanantes" class="error"></div>
+      </div>
+
+      <label for="observaciones">Observaciones</label>
+      <div class="campo-icono">
+        <i class="fas fa-comment-dots"></i>
+        <textarea id="observaciones" name="observaciones" placeholder="Opcional..."></textarea>
+      </div>
+
+      <button type="submit" class="boton">
+        <i class="fas fa-paper-plane"></i> Enviar Reserva
+      </button>
+    </form>
+  </div>
+
+  <script>
+    document.getElementById('reservaForm').addEventListener('submit', function(event) {
+      const destino = document.getElementById('destino');
+      const acompanantes = document.getElementById('acompanantes');
+
+      const errorDestino = document.getElementById('error-destino');
+      const errorAcompanantes = document.getElementById('error-acompanantes');
+
+      errorDestino.textContent = '';
+      errorAcompanantes.textContent = '';
+
+      let valido = true;
+
+      if (destino.value.trim() === '') {
+        errorDestino.textContent = 'Este campo es obligatorio.';
+        valido = false;
+      }
+
+      if (acompanantes.value.trim() === '') {
+        errorAcompanantes.textContent = 'Este campo es obligatorio.';
+        valido = false;
+      }
+
+      if (!valido) {
+        event.preventDefault();
+      }
+    });
+  </script>
+</body>
+</html>
