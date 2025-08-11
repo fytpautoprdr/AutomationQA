@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <title>🚀 Ejecutar Flujo n8n</title>
+    <style>
+      body {
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        background-color: #eef2f3;
+        margin: 0;
+        padding: 30px;
+        color: #333;
+      }
+      .container {
+        max-width: 750px;
+        margin: auto;
+        background-color: #fff;
+        padding: 40px;
+        border-radius: 12px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      }
+      h1 {
+        color: #2e7d32;
+        text-align: center;
+        margin-bottom: 10px;
+      }
+      .description {
+        font-size: 16px;
+        line-height: 1.7;
+        margin-bottom: 30px;
+      }
+      ul {
+        text-align: left;
+        margin-top: 10px;
+      }
+      li {
+        margin-bottom: 10px;
+      }
+      .button {
+        display: block;
+        width: 100%;
+        max-width: 250px;
+        margin: 30px auto 10px auto;
+        padding: 15px 30px;
+        font-size: 18px;
+        background-color: #4CAF50;
+        color: white;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        text-align: center;
+        font-weight: bold;
+        transition: background-color 0.3s;
+      }
+      .button:hover {
+        background-color: #45a049;
+      }
+      #status {
+        text-align: center;
+        margin-top: 20px;
+        font-size: 16px;
+        font-style: italic;
+        color: #555;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1>🚀 Empezando el día</h1>
+      <div class="description">
+        Este flujo automático de <strong>n8n</strong> realiza las siguientes tareas para comenzar la jornada:
+        <ul>
+          <li>📁 Recorre el directorio <strong>“Empezando el día”</strong> y obtiene todos los archivos PDF disponibles.</li>
+          <li>🧠 Por cada PDF, una IA analiza el contenido y genera un <strong>informe individual</strong> en la carpeta <em>“Informes Históricos”</em>.</li>
+          <li>📊 Luego la IA arma un <strong>resumen general</strong> con todos los informes en la carpeta <em>“Resúmenes Históricos”</em>.</li>
+          <li>📦 Finalmente, los archivos PDF se mueven a la carpeta <em>“Archivos Históricos”</em>.</li>
+        </ul>
+        Ideal para empezar el día con información clara, ordenada y procesada automáticamente.
+      </div>
+
+      <button class="button" onclick="ejecutarFlujo()">Ejecutar Flujo</button>
+      <div id="status">🔁 Aún no se ha ejecutado.</div>
+    </div>
+
+    <script>
+      function ejecutarFlujo() {
+        document.getElementById("status").innerText = "🕒 Ejecutando flujo...";
+        fetch("https://n8nprd.fyo.com/webhook/EmpezandoElDia", {
+          method: "GET"
+        })
+          .then((response) => {
+            if (response.ok) {
+              document.getElementById("status").innerText =
+                "✅ Flujo ejecutado con éxito.";
+            } else {
+              document.getElementById("status").innerText =
+                "⚠️ Hubo un problema al ejecutar el flujo.";
+            }
+          })
+          .catch((error) => {
+            console.error("Error:", error);
+            document.getElementById("status").innerText =
+              "❌ Error de conexión.";
+          });
+      }
+    </script>
+  </body>
+</html>
